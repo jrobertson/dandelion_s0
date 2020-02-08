@@ -10,7 +10,7 @@ class DandelionS0 < RackRscript
 
   def initialize(opts={})
 
-    h = {root: 'www'}.merge(opts)
+    h = {root: 'www', access: {}, static: {}}.merge(opts)
     
     access_list = h[:access]
     @app_root = Dir.pwd
@@ -22,7 +22,7 @@ class DandelionS0 < RackRscript
     @access_list = conf_access.inject({}) \
                                 {|r,x| k,v = x; r.merge(k.to_s => v.split)}
     
-    h3 = %i(log pkg_src rsc_host rsc_package_src root static debug)\
+    h3 = %i(log pkg_src rsc_host root static debug)\
         .inject({}) {|r,x| r.merge(x => h[x])}
     
     super(h3)
@@ -61,4 +61,3 @@ class DandelionS0 < RackRscript
   end   
 
 end
-
